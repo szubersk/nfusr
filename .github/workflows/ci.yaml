@@ -1,0 +1,24 @@
+---
+name: CI
+
+on:
+  push: {}
+  pull_request: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: install dependencies
+      run: |
+          set -ex
+          export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
+          sudo -E apt-get update -qq
+          sudo -E apt-get install -qq -y libfuse-dev libnfs-dev
+    - name: compile
+      run: |
+          set -ex
+          autoreconf -vif
+          ./configure
+          make -j$(nproc)
