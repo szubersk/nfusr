@@ -13,6 +13,7 @@
 
 #include <limits.h>
 #include <nfsc/libnfs.h>
+#include <sys/sysmacros.h>
 #include <cassert>
 #include <chrono>
 #include <cstring>
